@@ -21,37 +21,34 @@ class _WordHurdleState extends State<WordHurdle> {
       appBar: AppBar(
         title: const Text('Word Hurdle'),
       ),
-      body: Column(
-        children: [
-          Placeholder(
-            fallbackHeight: MediaQuery.of(context).size.height * .6,
-            fallbackWidth: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(64.0),
-              child: GridView.count(
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                crossAxisCount: 5,
-                children: List.generate(
-                  30,
-                  (index) {
-                    return Container(
-                      child: CircleAvatar(),
-                    );
-                  },
+      body: Center(
+        child: Column(
+          children: [
+            Expanded(
+              child: Consumer<HurdleProvider>(builder: (context, value, child) => 
+                 GridView.count(
+                  crossAxisCount: 5,
+                  children: List.generate(
+                    30,
+                    (index) {
+                      return Container(
+                        child: CircleAvatar(),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-          Placeholder(
-            fallbackHeight: MediaQuery.of(context).size.height * .3,
-            fallbackWidth: double.infinity,
-          ),
-          Placeholder(
-            fallbackHeight: MediaQuery.of(context).size.height * .1,
-            fallbackWidth: double.infinity,
-          ),
-        ],
+            Placeholder(
+              fallbackHeight: MediaQuery.of(context).size.height * .3,
+              fallbackWidth: double.infinity,
+            ),
+            Placeholder(
+              fallbackHeight: MediaQuery.of(context).size.height * .1,
+              fallbackWidth: double.infinity,
+            ),
+          ],
+        ),
       ),
     );
   }
