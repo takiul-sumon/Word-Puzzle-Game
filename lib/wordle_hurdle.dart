@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:word_puzzle/hurdle_provider.dart';
 import 'package:word_puzzle/wordle.dart';
 
 class WordleView extends StatelessWidget {
