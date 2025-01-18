@@ -28,19 +28,27 @@ class _WordHurdleState extends State<WordHurdle> {
           children: [
             Expanded(
               child: SizedBox(
-                width: MediaQuery.of(context).size.width*.7,
+                width: MediaQuery.of(context).size.width * .7,
                 child: Consumer<HurdleProvider>(
                     builder: (context, provider, child) => GridView.builder(
-                        gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 5),
                         itemCount: provider.hurdleBoard.length,
                         itemBuilder: (context, index) {
                           final wordle = provider.hurdleBoard[index];
-                          return WordleView(wordle:wordle);
+                          return WordleView(wordle: wordle);
                         })),
               ),
             ),
-            KeyBoardView(),
+            Consumer<HurdleProvider>(
+                builder: (context, provider, child) => KeyBoardView(
+                      excludedLetters: provider.excludedLetters,
+                      onPressed: (value) {
+                        provider.inputLetter(value);
+                        print(provider.rowInputs);
+                      },
+                    )),
             // Placeholder(
             //   fallbackHeight: MediaQuery.of(context).size.height * .3,
             //   fallbackWidth: double.infinity,

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 const Keylist = [
@@ -15,7 +16,13 @@ const Keylist = [
 ];
 
 class KeyBoardView extends StatelessWidget {
-  const KeyBoardView({super.key});
+  final List<String> excludedLetters;
+  final Function(String) onPressed;
+  const KeyBoardView({
+    Key? key,
+    required this.excludedLetters,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,11 @@ class KeyBoardView extends StatelessWidget {
           Row(
             children: Keylist[i]
                 .map((e) => VirtualKey(
-                    letter: e, extended: false, onPress: (value) {}))
+                    letter: e,
+                    extended: excludedLetters.contains(e),
+                    onPress: (value) {
+                      onPressed(value);
+                    }))
                 .toList(),
           ),
       ],
