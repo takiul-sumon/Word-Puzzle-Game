@@ -81,8 +81,26 @@ class _WordHurdleState extends State<WordHurdle> {
                               context: context,
                               title: 'You Win',
                               body: 'The Word was ${provider.targetWord}',
-                              onPlayAgain: (){},
-                              onCancel: (){});
+                              onPlayAgain: () {
+                                Navigator.pop(context);
+                                provider.reset();
+                              },
+                              onCancel: () {
+                                 Navigator.pop(context);
+                              });
+                        } else if (provider.noAttemptsLeft) {
+                          showResult(
+                            context: context,
+                            title: 'You Lost',
+                            body: "The Target Word was ${provider.targetWord}",
+                            onPlayAgain: () {
+                              Navigator.pop(context);
+                                provider.reset();
+                            },
+                            onCancel: () {
+                               Navigator.pop(context);
+                            },
+                          );
                         }
                       },
                       child: Text('SUBMIT'),

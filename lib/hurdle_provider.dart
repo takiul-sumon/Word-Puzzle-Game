@@ -61,16 +61,19 @@ class HurdleProvider extends ChangeNotifier {
   bool get isValidWord => totalWords.contains(rowInputs.join('').toLowerCase());
   bool get shouldCheckForAnswer => rowInputs.length == letterPerRow;
 
+  bool get noAttemptsLeft => attempts == totalAttempts;
+
   void checkAnswer() {
     final input = rowInputs.join('');
     if (targetWord == input) {
       wins = true;
     } else {
       _markLetterOnBoard();
-      if (attempts == totalAttempts) {
+      if (attempts < totalAttempts) {
         _goToNextRow();
       }
     }
+    notifyListeners();
   }
 
   void _markLetterOnBoard() {
@@ -91,5 +94,19 @@ class HurdleProvider extends ChangeNotifier {
     attempts++;
     count = 0;
     rowInputs.clear();
+    notifyListeners();
+  }
+
+  reset() {
+    wins = false;
+    attempts = 0;
+    count = 0;
+    rowInputs.clear();
+    hurdleBoard.clear();
+    targetWord = '';
+    excludedLetters.clear();
+    generateBoard();
+    genreateRandomWord();
+    notifyListeners();
   }
 }
