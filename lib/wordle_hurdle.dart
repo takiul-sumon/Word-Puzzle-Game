@@ -17,7 +17,11 @@ class WordleView extends StatelessWidget {
                 : null,
         border: Border.all(width: 2, color: Colors.red),
       ),
-      child: Text(wordle.letter,style: TextStyle(fontSize: 10),),
+      child: Center(
+          child: Text(
+        wordle.letter,
+        style: TextStyle(fontSize: 10),
+      )),
     );
   }
 }

@@ -29,6 +29,7 @@ class _WordHurdleState extends State<WordHurdle> {
             Expanded(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .7,
+                height: MediaQuery.of(context).size.height * .5,
                 child: Consumer<HurdleProvider>(
                     builder: (context, provider, child) => GridView.builder(
                         gridDelegate:
@@ -49,14 +50,23 @@ class _WordHurdleState extends State<WordHurdle> {
                         print(provider.rowInputs);
                       },
                     )),
-            // Placeholder(
-            //   fallbackHeight: MediaQuery.of(context).size.height * .3,
-            //   fallbackWidth: double.infinity,
-            // ),
-            Placeholder(
-              fallbackHeight: MediaQuery.of(context).size.height * .1,
-              fallbackWidth: double.infinity,
-            ),
+           
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Submit'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Clear'),
+                  ),
+              
+                ],
+              ),
+            )
           ],
         ),
       ),

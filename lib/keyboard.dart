@@ -26,20 +26,22 @@ class KeyBoardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (int i = 0; i < Keylist.length; i++)
-          Row(
-            children: Keylist[i]
-                .map((e) => VirtualKey(
-                    letter: e,
-                    extended: excludedLetters.contains(e),
-                    onPress: (value) {
-                      onPressed(value);
-                    }))
-                .toList(),
-          ),
-      ],
+    return Card(
+      child: Column(
+        children: [
+          for (int i = 0; i < Keylist.length; i++)
+            Row(
+              children: Keylist[i]
+                  .map((e) => VirtualKey(
+                      letter: e,
+                      extended: excludedLetters.contains(e),
+                      onPress: (value) {
+                        onPressed(value);
+                      }))
+                  .toList(),
+            ),
+        ],
+      ),
     );
   }
 }
