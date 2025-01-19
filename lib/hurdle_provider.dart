@@ -43,4 +43,20 @@ class HurdleProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  deleteLetter() {
+    if (count > 0) {
+      rowInputs.removeLast();
+      count--;
+      index--;
+      hurdleBoard[index] = Wordle(letter: '');
+      notifyListeners();
+      print(rowInputs);
+    }
+  }
+
+  bool get isValidWord => totalWords.contains(rowInputs.join('').toLowerCase());
+  bool get shouldCheckForAnswer => rowInputs.length == letterPerRow;
+
+  void checkAnswer() {}
 }

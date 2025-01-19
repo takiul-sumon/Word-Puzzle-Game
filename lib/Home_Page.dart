@@ -18,6 +18,7 @@ class _WordHurdleState extends State<WordHurdle> {
     super.didChangeDependencies();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +30,6 @@ class _WordHurdleState extends State<WordHurdle> {
             Expanded(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .7,
-                height: MediaQuery.of(context).size.height * .5,
                 child: Consumer<HurdleProvider>(
                     builder: (context, provider, child) => GridView.builder(
                         gridDelegate:
@@ -50,21 +50,33 @@ class _WordHurdleState extends State<WordHurdle> {
                         print(provider.rowInputs);
                       },
                     )),
-           
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Submit'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Clear'),
-                  ),
-              
-                ],
+              child: Consumer<HurdleProvider>(
+                builder: (context, provider, child) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        provider.deleteLetter();
+                      },
+                      child: Text('DELETE'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!provider.isValidWord) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Invalid Word')));
+                          return;
+                        }
+                        if (provider.shouldCheckForAnswer) {
+                          provider.checkAnswer();
+                        }
+                      },
+                      child: Text('SUBMIT'),
+                    ),
+                  ],
+                ),
               ),
             )
           ],
