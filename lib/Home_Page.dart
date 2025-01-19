@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:word_puzzle/helper_function.dart';
 import 'package:word_puzzle/keyboard.dart';
 import 'package:word_puzzle/wordle_hurdle.dart';
 import './hurdle_provider.dart';
+
+void ShowMsg(BuildContext context, String msg) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+}
 
 class WordHurdle extends StatefulWidget {
   const WordHurdle({super.key});
@@ -65,12 +70,19 @@ class _WordHurdleState extends State<WordHurdle> {
                     ElevatedButton(
                       onPressed: () {
                         if (!provider.isValidWord) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Invalid Word')));
+                          ShowMsg(context, 'Invalid Word');
                           return;
                         }
                         if (provider.shouldCheckForAnswer) {
                           provider.checkAnswer();
+                        }
+                        if (provider.wins) {
+                          showResult(
+                              context: context,
+                              title: 'You Win',
+                              body: 'The Word was ${provider.targetWord}',
+                              onPlayAgain: (){},
+                              onCancel: (){});
                         }
                       },
                       child: Text('SUBMIT'),
